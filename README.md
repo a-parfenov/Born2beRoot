@@ -1,12 +1,12 @@
-    ------------------- Оглавление -------------------
+### Оглавление
     
-    | -> 1) Основные команды и тезисы
-    | -> 2) Переведенный subject с полезными заметками
-    | -> 3) Полезные ссылки
+    -> 1) Основные команды и тезисы
+    -> 2) Переведенный subject с полезными заметками
+    -> 3) Полезные ссылки
+
+P.S. Материал собрал из информации, которой делились со мной + что нашел сам. Она не является исчерпывающей, так что вам все равно придется гуглить ;)
     
-    P.S. Материал собрал из информации, которой делились со мной + что нашел сам. Она не является исчерпывающей, так что вам все равно придется гуглить ;)
-    
-    --------------------------------------------------------------------- Команды и тезисы ----------------------------------------------------------------------
+### Команды и тезисы
     
     
     1) Легче скачать и использовать Debian, чем CentOS (если нет опыта);
@@ -60,9 +60,10 @@
     
     
     
-    --------------------------------------------------------------------- subject ----------------------------------------------------------------------
+### Переведенный subject с полезными заметками
     
-    
+Ссылка на subject: https://cdn.intra.42.fr/pdf/pdf/31621/en.subject.pdf
+
     	• Использование VirtualBox (или UTM, если вы не можете использовать VirtualBox) является обязательным.
     	• Вам нужно только сдать signature.txt файл в корневом каталоге вашего репозитория. Вы
     	должны вставить в него подпись виртуального диска вашей машины. Для получения дополнительной информации перейдите к разделу Отправка и
@@ -199,7 +200,7 @@
     // /usr/sbin/ufw status
     
     
-    ----------------------------------------------------------- Представление и коллегиальная оценка ------------------------------------------------------------
+### Представление и коллегиальная оценка
     
     
     Представление и коллегиальная оценка
@@ -231,132 +232,128 @@
     они не идентичны, ваша оценка будет равна 0.
     
     
-    --------------------------------------------------------------------- Полезные ссылки ----------------------------------------------------------------------
+### Полезные ссылки
     
-    | -> Для понимания темы:
-    https://www.youtube.com/watch?v=13YBlD0SOJo
+>| -> Для понимания темы:
+>https://www.youtube.com/watch?v=13YBlD0SOJo
+>
+>| -> Мануалы:
+>
+>Оба кривые, первый получше. Для выполнения проекта понадобятся оба, но сначала посмотрите видео и почитайте об основных моментах.
+>
+>https://github.com/hanshazairi/42-born2beroot#step-3-connecting-to-server-via-ssh
+>https://baigal.medium.com/born2beroot-e6e26dfb50ac
     
-    | -> Мануалы:
-    Оба кривые, первый получше. Для выполнения проекта понадобятся оба, но сначала посмотрите видео и почитайте об основных моментах.
-    | -> https://github.com/hanshazairi/42-born2beroot#step-3-connecting-to-server-via-ssh
-    | -> https://baigal.medium.com/born2beroot-e6e26dfb50ac
+      
+#### 1) AppArmor 
     
+   https://help.ubuntu.ru/wiki/руководство_по_ubuntu_server/безопасность/apparmor
+   AppArmor - это реализация Модуля безопасности линукс по управлению доступом на основе имен. AppArmor ограничивает отдельные программы 
+   набором перечисленных файлов и возможностями в соответствии с правилами Posix 1003.1e
     
+   Проверить статус AppArmor sudo apparmor_status
     
-    1)AppArmor 
+#### 2) Настройка портов SSH и UFW
     
-    	https://help.ubuntu.ru/wiki/руководство_по_ubuntu_server/безопасность/apparmor
-    	AppArmor - это реализация Модуля безопасности линукс по управлению доступом на основе имен. AppArmor ограничивает отдельные программы 
-    	набором перечисленных файлов и возможностями в соответствии с правилами Posix 1003.1e
+   nano /etc/ssh/sshd_config - с помощью редактора меняем строку Port 22 на Port 4242
     
-    	Проверить статус AppArmor sudo apparmor_status
+   В с строке  PermitRootLogin ставим no чтобы запретить авторизацию от имени суперпользователя
     
-    2) Настройка портов SSH и UFW
+   Установка UFW
+   apt install ufw
     
-    	nano /etc/ssh/sshd_config - с помощью редактора меняем строку Port 22 на Port 4242
+    -запуск ufw enable
+    -остановка uff disable
+    -разрешить порт sudo ufw allow 4242
+    -проверить статус sudo ufw status verbose
+    -удалить правило ufw sudo ufw delete allow 4242
+    -сброс uff sudo ufw reset
+
+#### 3) Create a new user and assign it to a group
     
-    	В с строке  PermitRootLogin ставим no чтобы запретить авторизацию от имени суперпользователя
+    Создать пользователя
+    sudo adduser pes228
     
-    	Установка UFW
-    	apt install ufw
+    Удалить пользователя
+    sudo deluser name
+    sudo userdel name
+    https://losst.ru/kak-udalit-polzovatelya-linux
     
-    	-запуск ufw enable
-    	-остановка uff disable
-    	-разрешить порт sudo ufw allow 4242
-    	-проверить статус sudo ufw status verbose
-    	-удалить правило ufw sudo ufw delete allow 4242
-    	-сброс uff sudo ufw reset
+    Просмотреть список групп пользователя
+    Id -Gn
     
-    3)create a new user and assign it to a group
-    
-    	Создать пользователя
-    	sudo adduser pes228
-    
-    	Удалить пользователя
-    	sudo deluser name
-    	sudo userdel name
-    	https://losst.ru/kak-udalit-polzovatelya-linux
-    
-    	Просмотреть список групп пользователя
-    	Id -Gn
-    
-    	Просмотреть список пользователей можно с помощью файла /etc/passwd , в котором 
-    	Хранится вся информация об учетных записях
+    Просмотреть список пользователей можно с помощью файла /etc/passwd , в котором 
+    Хранится вся информация об учетных записях
     	
-    	less /etc/passwd 
+    less /etc/passwd 
     
-    	Создать группуd
-    	sudo groupadd zalupers 
+    Создать группуd
+    sudo groupadd zalupers 
     
-    	Добавить в группу можно с помощью команды sudo usermod -a -G wheel user
-    	https://losst.ru/kak-dobavit-polzovatelya-v-gruppu-linux
+    Добавить в группу можно с помощью команды sudo usermod -a -G wheel user
+    https://losst.ru/kak-dobavit-polzovatelya-v-gruppu-linux
     
-    	-a - добавить пользователя в те группы, которые указаны после ключа -G, если не указать ключ a,
-    	то все старые группы затрутся, что может вызвать проблемы
+    -a - добавить пользователя в те группы, которые указаны после ключа -G, если не указать ключ a,
+    то все старые группы затрутся, что может вызвать проблемы
     
-    4)implement a strong password policy
+#### 4) Implement a strong password policy
     - Your password has to expire every 30 days. nano /etc/login.defs строчка PASS_MAX_DAYS 30
     - minimum number of days allowed PASS_MIN_DAYS 2
     - Warning message 7 days before their password expires PASS_WARN_AGE 7
     
-    	chage -l aleslie показать правила пароля у chage
+    chage -l aleslie показать правила пароля у chage
+
+    Чтобы настроить всю бороду с количеством и качеством букв в пароле скачиваем пакет libpam-pquality
+    sudo apt-get install libpam-pwquality
+
+    Затем заходим в файл /etc/pam.d/common-password и устанавливаем нужные параметры в строку 25
+https://computingforgeeks.com/enforce-strong-user-password-policy-ubuntu-debian/
+
+
+#### 5) Set up a strong configuration for your sudo group
+https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/
+    tty показывает имя терминала, который мы используем
+https://zalinux.ru/?p=4490
     
-    	Чтобы настроить всю бороду с количеством и качеством букв в пароле скачиваем пакет libpam-pquality
-    	sudo apt-get install libpam-pwquality
+#### 6) Script called monitoring.sh
     
-    	Затем заходим в файл /etc/pam.d/common-password и устанавливаем нужные параметры в строку 25
-    	https://computingforgeeks.com/enforce-strong-user-password-policy-ubuntu-debian/
-    
-    
-    5) set up a strong configuration for your sudo group
-    	https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/
-    
-    	tty показывает имя терминала, который мы используем https://zalinux.ru/?p=4490
-    
-    6)script called monitoring.sh
-    
-    7) Изменить hostname 
+#### 7) Изменить hostname 
     (sudo) hostnamectl set-hostname {name-here}
     
-    8)Разница между apt и aptitude
-    	https://www.tecmint.com/difference-between-apt-and-aptitude/
+#### 8) Разница между apt и aptitude
+https://www.tecmint.com/difference-between-apt-and-aptitude/
     
-    9)Разница между centOS и Debian
-    	https://forums.centos.org/viewtopic.php?t=71948
+#### 9) Разница между centOS и Debian
+https://forums.centos.org/viewtopic.php?t=71948
     
-    10) Подробнее о разделах файловой системы
+#### 10) Подробнее о разделах файловой системы
     
-    	https://help.ubuntu.ru/wiki/разделы_и_файловые_системы_linux#виды_разделов
+https://help.ubuntu.ru/wiki/разделы_и_файловые_системы_linux#виды_разделов
     
-    11)что такое LVM и как оно работает
-    	https://habr.com/ru/post/67283/
-    	https://www.dmosk.ru/terminus.php?object=lvm
-    	https://interface31.ru/tech_it/2020/07/lvm-dlya-nachinayushhih-chast-1-obshhie-voprosy.html
+#### 11) Что такое LVM и как оно работает
+https://habr.com/ru/post/67283/
+https://www.dmosk.ru/terminus.php?object=lvm
+https://interface31.ru/tech_it/2020/07/lvm-dlya-nachinayushhih-chast-1-obshhie-voprosy.html
     
-    12)Как добавить пользователя в группу sudo(кроме visudo)
-    	https://www.digitalocean.com/community/tutorials/how-to-create-a-new-sudo-enabled-user-on-ubuntu-18-04-quickstart-ru
-    	usermod -aG sudo kmercy
+ #### 12) Как добавить пользователя в группу sudo(кроме visudo)
+   usermod -aG sudo aleslie
+
+#### 13) Что такое UFW 
+    https://ru.wikipedia.org/wiki/Uncomplicated_Firewall
     
-    13)что такое UFW https://ru.wikipedia.org/wiki/Uncomplicated_Firewall
+#### 14) Как удалить пользователя 
+    deluser aleslie --remove-all-files
+https://losst.ru/kak-udalit-polzovatelya-linux
     
-    14)Как удалить пользователя 
-    	deluser aleslie --remove-all-files
-    	https://losst.ru/kak-udalit-polzovatelya-linux
+    Удалить пользователя из группы
+    sudo gpasswd -d aleslie sudo
+https://losst.ru/udalit-polzovatelya-iz-gruppy-linux
     
-    	Удалить пользователя из группы
-    	sudo gpasswd -d aleslie sudo
-    	https://losst.ru/udalit-polzovatelya-iz-gruppy-linux
+#### 15) Что такое SSH
+    SSH (англ. Secure Shell — «безопасная оболочка»[1]) — сетевой протокол прикладного уровня, 
+    позволяющий производить удалённое управление операционной системой и туннелирование     TCP-соединений
+https://ru.wikipedia.org/wiki/SSH
     
-    15)  Что такое SSH
-    
-    	SSH (англ. Secure Shell — «безопасная оболочка»[1]) — сетевой протокол прикладного уровня, позволяющий производить удалённое управление операционной системой и туннелирование     TCP-соединений
-    	https://ru.wikipedia.org/wiki/SSH
-    
-    16) Crontab
-    	https://winitpro.ru/index.php/2020/04/21/planirovshhik-zadach-cron-v-linux/
-    	cat /var/spool/cron/root
-    
-    
-    
-    
-    
+#### 16) Crontab
+https://winitpro.ru/index.php/2020/04/21/planirovshhik-zadach-cron-v-linux/
+    cat /var/spool/cron/root
