@@ -288,7 +288,7 @@ P.S. Материал собрал из информации, которой д�
     less /etc/passwd 
     
     Создать группуd
-    sudo groupadd zalupers 
+    sudo groupadd <name> 
     
     Добавить в группу можно с помощью команды sudo usermod -a -G wheel user
     https://losst.ru/kak-dobavit-polzovatelya-v-gruppu-linux
